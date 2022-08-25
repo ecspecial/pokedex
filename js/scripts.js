@@ -38,7 +38,7 @@ let pokemonRepository = (function () {
     // Create function to log pokemon object when pokemon button is clicked by user
     function displayPokemonOnClick(button, pokemon) {
         button.addEventListener('click', function (event) {
-            showDeatails(pokemon);
+            showDeatails(pokemon.name);
         });
     }
 
