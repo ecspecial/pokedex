@@ -7,15 +7,11 @@ let pokemonList = [
     {name: 'Tentacruel', height: 1.6, types: ['water', 'poison']}
 ];
 
-// Loop that iterates over each array object and prints poemon name value
-for (i = 0; i < pokemonList.length; i++) {
-
-    // Condition to print comment on the big pokemon
-    if (pokemonList[i].height > 1.7) {
-        document.write(pokemonList[i].name + ' (height: ' + pokemonList[i].height + ')');
-        document.write(' - Wow that\'s big' + '<p>');
+pokemonList.forEach(function(pokemon) {
+    if (pokemon.height > 2) {
+        document.write(pokemon.name + ' (height: ' + pokemon.height + ')');
+        document.write(' - Wow, that\'s big' + '<br>');
     } else {
-        console.log(pokemonList[i].name);
-        document.write(pokemonList[i].name + ' (height: ' + pokemonList[i].height + ')' + '<p>'); 
+        document.write(pokemon.name + ' (height: ' + pokemon.height + ')' + '<br>');
     }
-}
+});
