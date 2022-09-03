@@ -24,7 +24,7 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
-    // Load pokenmon list from pokemon api link
+    // Load pokemon list from pokemon api link
     function loadList() {
         //return list from api to promise as response
         return fetch(apiUrl).then(function (response) {
@@ -40,7 +40,24 @@ let pokemonRepository = (function () {
                 add(item);
             });
         }).catch (function (e) {
-            concole.log(e);
+            concole.error(e);
+        })
+    }
+
+    // Load pokemon details from pokemon details link
+    function loadDetails(item) {
+        let url = detailsUrl;
+        //return json from link to promise as response
+        return fetch(url).then(function (response) {
+            //return json itself
+            return response.json();
+        }).then(function (details) {
+            //add pokemon details
+            item.imageUrl = details.sprites.front_default;
+            item.height = details.height;
+            item.types = details.type;
+        }).catch (function (e) {
+            console.error(e);
         })
     }
 
@@ -80,8 +97,8 @@ let pokemonRepository = (function () {
     return {
         add: add,
         getAll: getAll,
-        addListItem: addListItem,
-        loadList: loadList
+        loadList: loadList,
+        loadDetails: loadDetails
     }
 })();
 
