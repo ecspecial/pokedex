@@ -9,13 +9,12 @@ let pokemonRepository = (function () {
     function add(pokemon) {
         // Check whether pokemon is submitted in the correct format, add if true
         if (
-            pokemon === 'object' &&
-            'name' in pokemon &&
-            'detailsUrl' in pokemon
+            typeof pokemon === 'object' &&
+            'name' in pokemon
         ) {
             pokemonList.push(pokemon);
         } else {
-            console.log("Error! Pokemon format: {name:'string', height: 'integer', types: ['string1', 'string2', ...] }");
+            console.log("Error! Wrong Pokemon format.");
         }
     }
 
@@ -37,16 +36,17 @@ let pokemonRepository = (function () {
                     name: item.name,
                     detailsUrl: item.url
                 };
-                add(item);
+                add(pokemon);
+                console.log(pokemon);
             });
-        }).catch (function (e) {
-            concole.error(e);
-        })
+        }).catch(function (e) {
+            console.error(e);
+        });
     }
 
     // Load pokemon details from pokemon details link
     function loadDetails(item) {
-        let url = detailsUrl;
+        let url = item.detailsUrl;
         //return json from link to promise as response
         return fetch(url).then(function (response) {
             //return json itself
@@ -56,20 +56,22 @@ let pokemonRepository = (function () {
             item.imageUrl = details.sprites.front_default;
             item.height = details.height;
             item.types = details.type;
-        }).catch (function (e) {
+        }).catch(function (e) {
             console.error(e);
-        })
+        });
     }
 
     // Create function logging pokemon object to the console
     function showDeatails(pokemon) {
-        console.log(pokemon);
+        pokemonRepository.loadDetails(pokemon).then(function () {
+            console.log(pokemon);
+        });
     }
 
     // Create function to log pokemon object when pokemon button is clicked by user
     function displayPokemonOnClick(button, pokemon) {
         button.addEventListener('click', function (event) {
-            showDeatails(pokemon.name);
+            showDeatails(pokemon);
         });
     }
 
@@ -97,12 +99,16 @@ let pokemonRepository = (function () {
     return {
         add: add,
         getAll: getAll,
+        addListItem: addListItem,
         loadList: loadList,
-        loadDetails: loadDetails
+        loadDetails: loadDetails,
+        showDeatails: showDeatails
     }
 })();
 
 // Acces pokemon list, add button for each pokemon and print it's name on it
-pokemonRepository.getAll().forEach(function (pokemon) {
+ pokemonRepository.loadList().then(function () {
+    pokemonRepository.getAll().forEach( function (pokemon) {
         pokemonRepository.addListItem(pokemon);
-});
+    });
+ });
