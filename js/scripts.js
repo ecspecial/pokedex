@@ -2,13 +2,8 @@
 let pokemonRepository = (function () {
 
     // Initialize pokemonList array and assign object values (pokemons) to it
-    let pokemonList = [
-    {name: 'Octillery', height: 0.9, types: ['water']},
-    {name: 'Loudred', height: 1, types: ['normal']},
-    {name: 'Foongus', height: 0.2, types: ['grass', 'poison']},
-    {name: 'Lapras', height: 2.5, types: ['ice', 'water']},
-    {name: 'Tentacruel', height: 1.6, types: ['water', 'poison']}
-    ];
+    let pokemonList = [];
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
     // Create a function that adds new pokemons to the end of the pokemonList array
     function add(pokemon) {
@@ -16,8 +11,7 @@ let pokemonRepository = (function () {
         if (
             pokemon === 'object' &&
             'name' in pokemon &&
-            'height' in pokemon &&
-            'types' in pokemon
+            'detailsUrl' in pokemon
         ) {
             pokemonList.push(pokemon);
         } else {
@@ -28,6 +22,26 @@ let pokemonRepository = (function () {
     // Create a function that returns list of pokemons when called
     function getAll() {
         return pokemonList;
+    }
+
+    // Load pokenmon list from pokemon api link
+    function loadList() {
+        //return list from api to promise as response
+        return fetch(apiUrl).then(function (response) {
+            //return json itself
+            return response.json();
+        }).then(function (json) {
+            //add pokemons from json to pokemon list one by one
+            json.results.forEach(function (item) {
+                let pokemon = {
+                    name: item.name,
+                    detailsUrl: item.url
+                };
+                add(item);
+            });
+        }).catch (function (e) {
+            concole.log(e);
+        })
     }
 
     // Create function logging pokemon object to the console
@@ -66,7 +80,8 @@ let pokemonRepository = (function () {
     return {
         add: add,
         getAll: getAll,
-        addListItem: addListItem
+        addListItem: addListItem,
+        loadList: loadList
     }
 })();
 
