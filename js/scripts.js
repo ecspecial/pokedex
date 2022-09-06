@@ -23,29 +23,66 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
-    // Load pokemon list from pokemon api link
-    function loadList() {
-        //return list from api to promise as response
-        return fetch(apiUrl).then(function (response) {
-            //return json itself
-            return response.json();
-        }).then(function (json) {
-            //add pokemons from json to pokemon list one by one
-            json.results.forEach(function (item) {
-                let pokemon = {
-                    name: item.name,
-                    detailsUrl: item.url
-                };
-                add(pokemon);
-                console.log(pokemon);
-            });
-        }).catch(function (e) {
-            console.error(e);
-        });
+    function showLoader () {
+        var divElement = document.createElement('div');
+        divElement.classList.add('loader');
+        document.body.appendChild(divElement);
+
     }
+
+    function hideLoader () {
+        var elementToRemove = document.querySelector('.loader');
+        elementToRemove.parentElement.removeChild(elementToRemove);
+    }
+
+// Load pokemon list from pokemon api link
+function loadList() {
+    showLoader();
+    return fetch(apiUrl).then(function (response) {
+    //return json itself
+        return response.json();
+        }).then(function (json) {
+        //add pokemons from json to pokemon list one by one
+        json.results.forEach(function (item) {
+            let pokemon = {
+                name: item.name,
+                detailsUrl: item.url
+            };
+            add(pokemon);
+            console.log(pokemon);
+        });
+    }).then(function () {
+        hideLoader();
+    }).catch(function (e) {
+        console.error(e);
+        hideLoader();
+    });
+}
+
+    // // Load pokemon list from pokemon api link
+    // function loadList() {
+    //     //return list from api to promise as response
+    //     return fetch(apiUrl).then(function (response) {
+    //         //return json itself
+    //         return response.json();
+    //     }).then(function (json) {
+    //         //add pokemons from json to pokemon list one by one
+    //         json.results.forEach(function (item) {
+    //             let pokemon = {
+    //                 name: item.name,
+    //                 detailsUrl: item.url
+    //             };
+    //             add(pokemon);
+    //             console.log(pokemon);
+    //         });
+    //     }).catch(function (e) {
+    //         console.error(e);
+    //     });
+    // }
 
     // Load pokemon details from pokemon details link
     function loadDetails(item) {
+        showLoader();
         let url = item.detailsUrl;
         //return json from link to promise as response
         return fetch(url).then(function (response) {
@@ -56,8 +93,11 @@ let pokemonRepository = (function () {
             item.imageUrl = details.sprites.front_default;
             item.height = details.height;
             item.types = details.type;
+        }).then(function () {
+            hideLoader();
         }).catch(function (e) {
             console.error(e);
+            hideLoader();
         });
     }
 
