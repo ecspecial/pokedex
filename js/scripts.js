@@ -59,27 +59,6 @@ function loadList() {
     });
 }
 
-    // // Load pokemon list from pokemon api link
-    // function loadList() {
-    //     //return list from api to promise as response
-    //     return fetch(apiUrl).then(function (response) {
-    //         //return json itself
-    //         return response.json();
-    //     }).then(function (json) {
-    //         //add pokemons from json to pokemon list one by one
-    //         json.results.forEach(function (item) {
-    //             let pokemon = {
-    //                 name: item.name,
-    //                 detailsUrl: item.url
-    //             };
-    //             add(pokemon);
-    //             console.log(pokemon);
-    //         });
-    //     }).catch(function (e) {
-    //         console.error(e);
-    //     });
-    // }
-
     // Load pokemon details from pokemon details link
     function loadDetails(item) {
         showLoader();
