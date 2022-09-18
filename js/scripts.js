@@ -23,21 +23,8 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
-    function showLoader () {
-        var divElement = document.createElement('div');
-        divElement.classList.add('loader');
-        document.body.appendChild(divElement);
-
-    }
-
-    function hideLoader () {
-        var elementToRemove = document.querySelector('.loader');
-        elementToRemove.parentElement.removeChild(elementToRemove);
-    }
-
 // Load pokemon list from pokemon api link
 function loadList() {
-    showLoader();
     return fetch(apiUrl).then(function (response) {
     //return json itself
         return response.json();
@@ -51,17 +38,13 @@ function loadList() {
             add(pokemon);
             console.log(pokemon);
         });
-    }).then(function () {
-        hideLoader();
     }).catch(function (e) {
         console.error(e);
-        hideLoader();
     });
 }
 
     // Load pokemon details from pokemon details link
     function loadDetails(item) {
-        showLoader();
         let url = item.detailsUrl;
         //return json from link to promise as response
         return fetch(url).then(function (response) {
@@ -72,11 +55,8 @@ function loadList() {
             item.imageUrl = details.sprites.front_default;
             item.height = details.height;
             item.types = details.type;
-        }).then(function () {
-            hideLoader();
         }).catch(function (e) {
             console.error(e);
-            hideLoader();
         });
     }
 
