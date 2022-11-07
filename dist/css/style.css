@@ -1,0 +1,1 @@
+body,html{font-family:Arial,sans-serif}:root{--pokemon-button-color:#cccccc;--dark-gray-text:#2b2b2b}body{margin-top:100px}.list{display:flex;flex-direction:column;align-items:center;list-style:none}.button{width:200px;margin-bottom:5px}.page-header{display:flex;flex-direction:column;justify-content:center;text-align:center}
