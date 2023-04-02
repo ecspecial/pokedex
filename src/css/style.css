@@ -1,34 +1,78 @@
-/*
-Colors used
-
-Pokemon list button color (Gray): #cccccc;
-Text color (Dark Gray): #2b2b2b;
-*/
-
 html, 
 body {
   font-family: Arial, sans-serif;
 }
 
 :root {
+  --color-primary: #191d2b;
+  --color-secondary: #27ae60;
   --pokemon-button-color: #cccccc;
   --dark-gray-text: #2b2b2b;
+  --dark-background-color: #292929;
+  --light-background-color: #4b4a4a;
+  --dark-greenish-color: #0a3d2e;
+  --light-primary-color: #212637;
+  --light-blue: #007bff
 }
 
 body {
   margin-top: 100px;
+  background-color: var(--color-primary);
+  color: white;
 }
 
+.modal-content {
+  background-color: var(--color-primary);
+}
+
+
 .list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 10px;
+  grid-gap: 5px;
+  justify-items: center;
+  align-items: center;
+  list-style: none;
+}
+
+.btn-outline-success {
+  color: white;
+}
+
+.card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-	list-style: none;
+  position: relative;
+  height: auto;
+  width: 200px;
+  margin-bottom: 5px;
+  background-color: var(--light-primary-color);
+  border-color: #007bff;
+  border-radius: 10px;
+  color: white;
+}
+
+.card-img {
+  max-width: 100%; 
+  max-height: 100%;
+  object-fit: contain;
+  
 }
 
 .button {
-  width: 200px;
-  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  margin-bottom: 10px;
+  width: 90%;
+  border-radius: 8 px;
+  background-color: var(--dark-gray-text);
+  color: white;
+}
+
+.button:hover {
+  background-color: #007bff
 }
 
 .page-header {
@@ -36,4 +80,51 @@ body {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  background-color: var(--pokemon-button-color);
+  color: white;
+  padding: 10px;
+}
+
+.navbar {
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--light-blue) 300%
+  );
+  color: white;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.navbar .nav-item .nav-link {
+  color: white;
+}
+
+.navbar .nav-item .nav-link:hover,
+.navbar .nav-item .nav-link:focus {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+.search-box label {
+  margin-right: 10px;
+}
+
+.search-box input[type="text"] {
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  margin-left: 10px;
+  padding: 5px;
+  background-color: var(--dark-gray-text);
+  color: white;
 }

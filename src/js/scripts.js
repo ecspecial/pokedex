@@ -28,8 +28,12 @@ let pokemonRepository = (function () {
 
             let list = document.querySelector('.list');
             let listItem = document.createElement('li');
-            
-            // Create a button for each pokemon displaying it's name on it
+            let pokemonCard = document.createElement('div');
+            pokemonCard.classList.add('card');
+            pokemonCard.id = `${pokemon.name}-card`;
+
+            let cardImage = document.createElement('img', 'card-img');
+
             let button = document.createElement('button');
             button.innerText = pokemon.name;
             button.classList.add('button');
@@ -37,7 +41,10 @@ let pokemonRepository = (function () {
             button.classList.add('btn-primary');
             button.setAttribute('data-toggle', 'modal');
             button.setAttribute('data-target', '#exampleModal');
-            listItem.appendChild(button);
+
+            pokemonCard.appendChild(cardImage);
+            pokemonCard.appendChild(button);
+            listItem.appendChild(pokemonCard);
             list.appendChild(listItem);
 
             button.addEventListener('click', function() {
@@ -63,6 +70,19 @@ let pokemonRepository = (function () {
         }).catch(function (e) {
             console.error(e);
         });
+    }
+
+    function getImage (item) {
+        let url = item.detailsUrl;
+        //return json from link to promise as response
+        return fetch(url).then(function (response) {
+            //return json itself
+            return response.json();
+        }).then(function (details) {
+            //add pokemon details
+            let imageCard = document.querySelector(`#${item.name}-card img`);
+            imageCard.src = details.sprites.front_default;
+        })
     }
 
     // Load pokemon details from pokemon details link
@@ -157,13 +177,15 @@ let pokemonRepository = (function () {
             addListItem: addListItem,
             loadList: loadList,
             loadDetails: loadDetails,
-            showDeatails: showDeatails
+            showDeatails: showDeatails,
+            getImage: getImage
         };
     })();
 
-// Acces pokemon list, add button for each pokemon and print it's name on it
- pokemonRepository.loadList().then(function () {
-    pokemonRepository.getAll().forEach( function (pokemon) {
-        pokemonRepository.addListItem(pokemon);
-    });
- });
+ (async function () {
+    await pokemonRepository.loadList();
+    await pokemonRepository.getAll().forEach( function (pokemon) {
+            pokemonRepository.getImage(pokemon);
+            pokemonRepository.addListItem(pokemon);
+        });
+})();
