@@ -2,6 +2,8 @@
 
 A small web application that loads Pokemon's data from external [API](https://pokeapi.co/api/v2/pokemon/) and enables data representation.
 
+![Image of Pokedex demo](./img/pokedex_demo_img.png)
+
 ### Live Demo
 Test [Pokedex](https://ecspecial.github.io/pokedex/) functionality
 
