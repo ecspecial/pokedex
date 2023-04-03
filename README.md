@@ -1,10 +1,17 @@
-# Simple-JavaScript-Application 
+# Pokedex 
 
-Objective: Build a small web application using HTML, CSS and JavaScript that loads data from external API and enables data representation.
+A small web application that loads Pokemon's data from external [API](https://pokeapi.co/api/v2/pokemon/) and enables data representation.
 
-Pokedex is a small application to display a list of pokemons (entries). It's key features are as followed:
+### Live Demo
+Test [Pokedex](https://ecspecial.github.io/pokedex/) functionality
 
-Load data from Pokemon API. View a list of 150 pokemons. On user action (click) display Pokemon details.
+### Key Features
+- Fetch and display data from an external API (PokeAPI)
+- Showcase individual Pokemon cards on a responsive webpage
+- Provide detailed information about each Pokemon through a modal
+- Implement live search functionality for loaded Pokemons
+- Display a loading indicator during data fetching
+- Enable swiping between items on the modal for touchscreen devices
 
 Technical Dependencies:
 
